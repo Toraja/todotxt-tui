@@ -2,17 +2,22 @@
 
 <!--
 Sync Impact Report:
-Version change: Initial constitution → 1.0.0
+Version change: 1.0.0 → 1.1.0
 Principles added:
   - I. Code Quality Standards
   - II. Test-Driven Development (NON-NEGOTIABLE)
   - III. User Experience Consistency
   - IV. Performance Requirements
   - V. Code Review & Documentation
+  - VI. Language-Specific Standards: Golang (NEW in 1.1.0)
 Sections added:
   - Quality Gates & Enforcement
   - Development Workflow
   - Governance
+Updates in 1.1.0:
+  - Added Golang-specific conventions and standards
+  - Updated test requirements to mandate Ginkgo testing framework
+  - Added Go module and dependency management requirements
 Templates status:
   - ✅ plan-template.md (to be validated)
   - ✅ spec-template.md (to be validated)
@@ -63,9 +68,24 @@ Follow-up TODOs: None
   - Database operations
   - Cross-module contracts
 
-**Test Naming Convention**: `test_[unit]_[scenario]_[expectedBehavior]`
+**Test Framework Requirements**:
+- **All tests MUST use the Ginkgo testing framework** with Gomega matchers
+- Tests MUST follow BDD (Behavior-Driven Development) style with Describe/Context/It blocks
+- Use descriptive test descriptions that read as specifications
+- Example structure:
+  ```go
+  Describe("ComponentName", func() {
+      Context("when specific condition", func() {
+          It("should exhibit expected behavior", func() {
+              // test implementation
+          })
+      })
+  })
+  ```
 
-**Rationale**: TDD ensures correctness by design, documents expected behavior, and enables fearless refactoring. Tests are living documentation that never goes stale.
+**Test File Naming Convention**: `[filename]_test.go` (Go standard)
+
+**Rationale**: TDD ensures correctness by design, documents expected behavior, and enables fearless refactoring. Tests are living documentation that never goes stale. Ginkgo provides expressive BDD-style testing that improves test readability and maintainability.
 
 ### III. User Experience Consistency
 
@@ -142,16 +162,104 @@ Follow-up TODOs: None
 
 **Rationale**: Peer review catches defects early, shares knowledge across the team, and maintains quality standards. Documentation ensures knowledge is preserved and accessible.
 
+### VI. Language-Specific Standards: Golang
+
+**This is a Golang project.** All code MUST strictly adhere to Go conventions and best practices:
+
+**Go Coding Standards**:
+- **Follow [Effective Go](https://go.dev/doc/effective_go)** guidelines
+- **Use `gofmt` and `goimports`**: All code MUST be formatted with standard Go tools
+- **Follow [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments)** conventions
+- **Package Naming**: 
+  - Use short, concise, lowercase package names
+  - No underscores or mixedCaps in package names
+  - Package name should be singular (e.g., `todo` not `todos`)
+- **File Organization**:
+  - One package per directory
+  - Group related functionality in the same package
+  - Keep internal implementation details in `internal/` packages
+- **Exported vs Unexported**:
+  - Only export what needs to be public (starts with uppercase)
+  - Keep implementation details unexported (starts with lowercase)
+  - Document all exported functions, types, and constants
+
+**Go-Specific Code Quality**:
+- **Error Handling**: 
+  - Check ALL errors; never ignore `err` return values
+  - Use `errors.Is()` and `errors.As()` for error comparison
+  - Wrap errors with context using `fmt.Errorf("context: %w", err)`
+  - Return errors rather than panicking (panic only for truly exceptional cases)
+- **Interfaces**:
+  - Accept interfaces, return concrete types
+  - Keep interfaces small and focused (prefer many small interfaces)
+  - Define interfaces where they are used, not where they are implemented
+- **Struct Embedding**: Use composition over inheritance via struct embedding
+- **Goroutines & Concurrency**:
+  - Document when functions are safe for concurrent use
+  - Use channels to communicate, avoid shared memory where possible
+  - Always provide a way to stop goroutines (context cancellation)
+- **Context Usage**: 
+  - First parameter in functions should be `context.Context` when needed
+  - Pass context through call chains, don't store in structs
+- **Testing**:
+  - **All tests MUST use `_test` package** (e.g., `package todo_test` for testing `package todo`)
+  - This enforces testing through the public API and prevents testing internal implementation details
+  - Prefer Ginkgo's BDD style with separate It blocks for different scenarios
+  - Table-driven tests are acceptable ONLY when appropriate (e.g., argument validation, parsing multiple input formats)
+  - When using table-driven tests with Ginkgo, use `DescribeTable` and `Entry` constructs
+  - Use testdata/ directory for test fixtures
+
+**Dependency Management**:
+- **Use Go modules** (`go.mod` and `go.sum`)
+- Pin dependencies to specific versions
+- Run `go mod tidy` regularly to clean up dependencies
+- Avoid unnecessary external dependencies; prefer standard library
+- Document why each major dependency is needed
+
+**Go Tooling Requirements**:
+- **Linting**: Use `golangci-lint` with strict configuration
+- **Formatting**: `gofmt` and `goimports` MUST pass
+- **Vet**: `go vet` MUST pass with zero warnings
+- **Static Analysis**: Use `staticcheck` for additional checks
+- **Security**: Run `gosec` for security vulnerability scanning
+
+**Testing with Ginkgo**:
+- **All tests MUST use Ginkgo BDD framework** with Gomega matchers
+- Run tests with: `ginkgo -r` (recursive) or `go test ./...`
+- Use `ginkgo bootstrap` to set up test suites
+- Use `ginkgo generate` to create test files
+- Leverage Gomega's expressive matchers (e.g., `Expect().To()`, `Eventually()`, `Consistently()`)
+- Use `BeforeEach` and `AfterEach` for test setup/teardown
+- Group related tests using `Context` blocks
+
+**Documentation**:
+- Every exported identifier MUST have a doc comment
+- Doc comments start with the name of the identifier
+- Use complete sentences in doc comments
+- Example:
+  ```go
+  // Task represents a todo item with its metadata.
+  // It implements the Stringer interface for easy printing.
+  type Task struct { ... }
+  ```
+
+**Rationale**: Go has strong conventions that make code predictable and maintainable across the ecosystem. Following these standards ensures compatibility with Go tooling, improves code review efficiency, and makes the codebase accessible to any Go developer. Ginkgo provides a mature, expressive BDD testing framework that enhances test clarity and maintainability.
+
 ## Quality Gates & Enforcement
 
 All code changes MUST pass these automated gates before merge:
 
 **Continuous Integration (CI) Requirements**:
 1. **Linting**: Code style and quality checks MUST pass (zero warnings tolerated)
+   - For Go: `golangci-lint`, `go vet`, `gofmt`, `goimports`, `staticcheck`
 2. **Tests**: All tests MUST pass with required coverage thresholds
+   - Run with: `ginkgo -r --cover` or `go test -v -cover ./...`
 3. **Build**: Project MUST compile/build without errors
+   - Go: `go build ./...` MUST succeed
 4. **Performance**: Benchmarks MUST not regress beyond threshold
+   - Go: Run `go test -bench=.` for performance tests
 5. **Security**: Dependency vulnerability scans MUST show no high/critical issues
+   - Go: Use `gosec` and `go list -json -m all | nancy sleuth`
 
 **Pre-commit Hooks**:
 - Format code automatically
@@ -222,4 +330,4 @@ Refs: #123
 
 **Runtime Development Guidance**: See `.specify/templates/` for detailed templates and workflows aligned with these principles.
 
-**Version**: 1.0.0 | **Ratified**: 2026-01-23 | **Last Amended**: 2026-01-23
+**Version**: 1.1.0 | **Ratified**: 2026-01-23 | **Last Amended**: 2026-01-23
