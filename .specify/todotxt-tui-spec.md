@@ -125,8 +125,8 @@ As a user, I want to quickly set or change task priorities using keybindings so 
 
 **Acceptance Scenarios**:
 
-1. **Given** a task without priority is highlighted, **When** I press 'p' followed by 'A', **Then** the task is updated with '(A) ' prefix
-2. **Given** a task with priority (B) is highlighted, **When** I press 'p' followed by 'A', **Then** the priority is updated to '(A)'
+1. **Given** a task without priority is highlighted, **When** I press 'p' followed by 'a', **Then** the task is updated with '(A) ' prefix
+2. **Given** a task with priority (B) is highlighted, **When** I press 'p' followed by 'a', **Then** the priority is updated to '(A)'
 3. **Given** a task with priority is highlighted, **When** I press 'p' followed by '0' or DEL, **Then** the priority is removed
 4. **Given** the TUI is displaying tasks, **When** tasks have different priorities, **Then** they are optionally sorted by priority (A > B > ... > no priority)
 
@@ -170,12 +170,12 @@ As a user, I want to view detailed task metadata (creation date, completion date
 
 - What happens when the todo.txt file is empty? → Display "No tasks found. Press 'o' to add a new task."
 - What happens when the todo.txt file doesn't exist? → Create a new empty file and display the empty state message.
-- What happens when the todo.txt file is modified externally while the TUI is open? → Detect file changes and prompt to reload (or auto-reload with notification).
+- What happens when the todo.txt file is modified externally while the TUI is open? → Detect file changes and prompt to reload.
 - What happens when the terminal window is resized? → Automatically reflow the layout to fit the new dimensions.
 - What happens when invalid todo.txt format is encountered? → Display the line as-is with a warning indicator, but don't crash.
 - What happens when very long task descriptions exceed terminal width? → Truncate with ellipsis or wrap to multiple lines based on configuration.
 - What happens when there are thousands of tasks? → Implement virtual scrolling for performance; only render visible tasks.
-- What happens when the user presses an unmapped key? → Ignore silently or show a brief "Unknown command" message in the status bar.
+- What happens when the user presses an unmapped key? → Show a brief "Unknown command" message in the status bar.
 - What happens when the file cannot be saved (permissions, disk full)? → Show error message and keep changes in memory with option to retry or save to alternate location.
 - What happens when trying to undo with no undo history? → Show "Nothing to undo" message in status bar.
 
@@ -189,7 +189,7 @@ As a user, I want to view detailed task metadata (creation date, completion date
 - **FR-003**: System MUST preserve the exact format and ordering of unrecognized metadata when saving
 - **FR-004**: System MUST write changes back to the todo.txt file atomically (temp file + rename) to prevent corruption
 - **FR-005**: System MUST handle file encoding as UTF-8
-- **FR-006**: System MUST auto-save changes [NEEDS CLARIFICATION: immediate after each action, or on-demand with :w command?]
+- **FR-006**: System MUST auto-save changes immediately after each action
 
 #### Navigation & Interaction
 - **FR-007**: System MUST implement vim-like normal mode with keybindings: j (down), k (up), gg (top), G (bottom), Ctrl+d (page down), Ctrl+u (page up)
@@ -205,7 +205,7 @@ As a user, I want to view detailed task metadata (creation date, completion date
 - **FR-015**: System MUST allow editing existing tasks (e/i keys) with full text editing capabilities
 - **FR-016**: System MUST allow deleting tasks (dd key combination) with confirmation
 - **FR-017**: System MUST support undo (u) and redo (Ctrl+r) for destructive operations
-- **FR-018**: System MUST allow setting/changing task priority (p key followed by A-Z or 0 to remove)
+- **FR-018**: System MUST allow setting/changing task priority (p key followed by a-z or 0 to remove)
 
 #### Filtering & Search
 - **FR-019**: System MUST implement search functionality (/ key) with live filtering as user types
@@ -223,18 +223,18 @@ As a user, I want to view detailed task metadata (creation date, completion date
 #### Sorting & Organization
 - **FR-028**: System MUST support multiple sort modes: priority, creation date, alphabetical, and original file order
 - **FR-029**: System MUST allow toggling visibility of completed tasks (h key)
-- **FR-030**: System MUST persist sort and filter preferences [NEEDS CLARIFICATION: in config file or per-session only?]
+- **FR-030**: System MUST persist sort and filter preferences in config file
 
 #### Error Handling & Validation
 - **FR-031**: System MUST display actionable error messages for file I/O failures (permission denied, disk full, etc.)
-- **FR-032**: System MUST validate priority input (A-Z only) and reject invalid input with feedback
+- **FR-032**: System MUST validate priority input (a-z only) and reject invalid input with feedback
 - **FR-033**: System MUST handle malformed todo.txt lines gracefully (display as-is with warning indicator)
 - **FR-034**: System MUST prevent data loss by prompting to save unsaved changes before exit
 
 #### Configuration & Customization
-- **FR-035**: System MUST support configuration file for keybindings [NEEDS CLARIFICATION: format YAML/TOML/JSON?]
+- **FR-035**: System MUST support configuration file for keybindings in YAML format
 - **FR-036**: System MUST support configuration for color schemes and visual styling
-- **FR-037**: System MUST accept todo.txt file path as command-line argument or use default location [NEEDS CLARIFICATION: default path convention?]
+- **FR-037**: System MUST accept todo.txt file path as command-line argument or use default location specified in the configuration file
 
 ### Key Entities
 
@@ -302,7 +302,7 @@ While implementation details are outside the scope of this specification, the fo
 Suggest using YAML or TOML for configuration file with structure:
 
 ```yaml
-todo_file: ~/todo.txt
+todo_file: ~/.local/share/todotxt/todo.txt
 auto_save: true
 show_completed: true
 default_sort: priority
