@@ -36,10 +36,10 @@ Users can create new tasks and edit existing tasks with full support for todo.tx
 
 **Acceptance Scenarios**:
 
-1. **Given** the application is open, **When** the user presses a key to add a new task, **Then** a prompt appears to enter task details
+1. **Given** the application is open, **When** the user presses `a` to add a new task, **Then** a prompt appears to enter task details
 2. **Given** the user is adding a task, **When** they enter "Buy groceries @store +household", **Then** the task is saved with context and project tags
 3. **Given** the user is adding a task, **When** they select priority (A) before entering text, **Then** the task is saved with "(A)" prefix
-4. **Given** the application has a task selected, **When** the user presses a key to edit, **Then** the task text becomes editable in a prompt
+4. **Given** the application has a task selected, **When** the user presses `e` to edit, **Then** the task text becomes editable in a prompt
 5. **Given** the user is editing a task, **When** they change the priority from (B) to (A), **Then** the task is saved with the new priority and repositioned in the list
 6. **Given** the user is editing a task, **When** they add a new context tag, **Then** the updated task displays the new context
 
@@ -55,9 +55,9 @@ Users can mark tasks as complete and delete tasks they no longer need. Completed
 
 **Acceptance Scenarios**:
 
-1. **Given** the application has a task selected, **When** the user presses the complete action key (e.g., `d` or Space), **Then** the task is marked with "x" and today's date
+1. **Given** the application has a task selected, **When** the user presses `Space` to complete it, **Then** the task is marked with "x" and today's date
 2. **Given** a task was just completed, **When** the user views the task list, **Then** the completed task appears at the bottom of the list or in a completed section
-3. **Given** the application has a task selected, **When** the user presses the delete action key (e.g., `x` or D), **Then** the task is removed from the file and list
+3. **Given** the application has a task selected, **When** the user presses `d` to delete, **Then** the task is removed from the file and list after confirmation
 4. **Given** a completed task exists, **When** the user deletes it, **Then** the task is permanently removed from the todo.txt file
 5. **Given** archive is configured, **When** a task is completed, **Then** the task is moved to done.txt with proper formatting
 
@@ -94,6 +94,46 @@ Users can filter the task list by priority, context, project, or search by text 
 - What happens when the file cannot be saved due to permissions or disk space?
 - What happens when a task line exceeds the terminal width?
 - What happens when there are no tasks in the file?
+- What happens when an unrecognized keyboard shortcut is pressed?
+- What happens when the user tries to delete the last remaining task?
+- What happens when trying to increase priority of a task already at (A)?
+- What happens when trying to complete an already completed task?
+
+### Keyboard Shortcuts
+
+**Navigation**:
+- `j` / `k` - Move cursor down/up through tasks
+- `g` / `G` - Jump to first/last task
+- `h` / `l` - Navigate left/right (in dialogs, filter panels)
+
+**Task Management**:
+- `a` - Add/create new task
+- `e` - Edit selected task
+- `Space` - Toggle task completion (mark as complete/incomplete)
+- `d` - Delete selected task (confirm before deletion)
+- `u` - Undo last delete (single-level undo)
+
+**Priority Editing**:
+- `+` / `-` - Increase/decrease priority of selected task (A→B→C→...→no priority)
+- `0` - Remove priority from selected task
+
+**Filtering and Searching**:
+- `/` - Open search prompt to filter by text
+- `f` - Open filter menu (priority, context, project filters)
+- `c` - Clear all active filters
+- `n` / `p` - Navigate to next/previous priority task
+
+**File Operations**:
+- `r` - Reload file from disk (detect external changes)
+- `s` - Save changes manually (auto-save also occurs after modifications)
+
+**System**:
+- `q` or `Esc` - Quit application (Esc may cancel current operation instead)
+- `?` or `F1` - Display help screen with all keyboard shortcuts
+
+**Context Actions** (when task selected):
+- `Enter` - View task details or confirm action in dialogs
+- `Tab` - Cycle through context tags or filter options
 
 ## Requirements *(mandatory)*
 
