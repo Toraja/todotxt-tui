@@ -1,20 +1,12 @@
 <!--
 Sync Impact Report:
-- Version change: [N/A] → 1.0.0
-- Modified principles: [N/A] → 4 new principles created
-  - I. Go Code Quality Standards
-  - II. Testing with Ginkgo (NON-NEGOTIABLE)
-  - III. TUI User Experience Consistency
-  - IV. Performance Requirements
-- Added sections:
-  - Performance Standards
-  - Development Workflow
+- Version change: 1.0.0 → 1.0.1
+- Modified principles: None
+- Modified sections: Development Workflow (gofmt → goimports)
+- Added sections: None
 - Removed sections: None
 - Templates requiring updates:
-  - ✅ plan-template.md (Constitution Check section compatible)
-  - ✅ spec-template.md (Requirements section compatible)
-  - ✅ tasks-template.md (Testing section compatible with Ginkgo)
-  - ✅ checklist-template.md (Format compatible)
+  - ✅ All templates remain compatible
 - Follow-up TODOs: None
 -->
 
@@ -25,7 +17,7 @@ Sync Impact Report:
 ### I. Go Code Quality Standards
 
 All code MUST follow Go best practices and idiomatic patterns:
-- Run `gofmt -w .` on all Go files before committing
+- Run `goimports -w .` on all Go files before committing
 - Run `golangci-lint run` and fix all reported issues
 - Run `go vet ./...` before commits
 - Follow Effective Go guidelines (https://golang.org/doc/effective_go)
@@ -121,7 +113,7 @@ All development MUST follow this workflow to ensure quality:
 
 **Before Committing**:
 1. Run `go mod tidy` to ensure dependencies are clean
-2. Run `gofmt -w .` to format all code
+2. Run `goimports -w .` to format all code
 3. Run `golangci-lint run` and fix all issues
 4. Run `go vet ./...` and fix all warnings
 5. Run `ginkgo -r --randomize-all --fail-on-pending --cover` and ensure all tests pass
@@ -141,7 +133,7 @@ All development MUST follow this workflow to ensure quality:
 
 **Continuous Integration**:
 - CI pipeline MUST run on every pull request
-- CI MUST execute: `go mod tidy`, `gofmt`, `golangci-lint`, `go vet`, `ginkgo -r`
+- CI MUST execute: `go mod tidy`, `goimports`, `golangci-lint`, `go vet`, `ginkgo -r`
 - CI MUST measure and report test coverage
 - CI MUST fail if any step fails
 - CI MUST include performance benchmarks for critical paths
@@ -174,4 +166,4 @@ This constitution supersedes all other development practices and guidelines. All
 
 **Rationale**: A clear governance process ensures the constitution evolves deliberately while maintaining stability. Versioning tracks changes and communicates impact to developers.
 
-**Version**: 1.0.0 | **Ratified**: 2026-02-01 | **Last Amended**: 2026-02-01
+**Version**: 1.0.1 | **Ratified**: 2026-02-01 | **Last Amended**: 2026-02-01

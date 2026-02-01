@@ -50,7 +50,7 @@ description: "Task list template for feature implementation"
 
 - [ ] T001 Create project structure per implementation plan
 - [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure Go tooling: gofmt, golangci-lint, go vet
+- [ ] T003 [P] Configure Go tooling: goimports, golangci-lint, go vet
 
 ---
 
