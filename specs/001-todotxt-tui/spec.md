@@ -98,6 +98,7 @@ Users can filter the task list by priority, context, project, or search by text 
 - What happens when the user tries to delete the last remaining task?
 - What happens when trying to increase priority of a task already at (A)?
 - What happens when trying to complete an already completed task?
+- What happens when Esc is pressed outside of any active operation (no dialogs open)?
 
 ### Keyboard Shortcuts
 
@@ -128,7 +129,8 @@ Users can filter the task list by priority, context, project, or search by text 
 - `s` - Save changes manually (auto-save also occurs after modifications)
 
 **System**:
-- `q` or `Esc` - Quit application (Esc may cancel current operation instead)
+- `q` - Quit application
+- `Esc` - Cancel current operation or close dialog (does NOT quit application)
 - `?` or `F1` - Display help screen with all keyboard shortcuts
 
 **Context Actions** (when task selected):
