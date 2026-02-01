@@ -17,21 +17,28 @@
   the iteration process.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: Go 1.21+ (or latest stable)  
+**Primary Dependencies**: [e.g., bubbletea, lipgloss, ginkgo, gomega]  
+**Storage**: todo.txt text files (local filesystem)  
+**Testing**: Ginkgo BDD framework + gomega matchers  
+**Target Platform**: Linux, macOS, Windows (terminal-based)  
+**Project Type**: Single TUI application  
+**Performance Goals**: <100ms startup, <50MB memory, 60fps rendering, <50ms file I/O  
+**Constraints**: Offline-capable, no blocking UI operations, responsive to terminal resize  
+**Scale/Scope**: Support 10,000+ tasks with progressive rendering
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Verify compliance with todotxt-tui Constitution:
+
+- [ ] **Go Code Quality**: Does design follow Effective Go? Are dependencies minimal?
+- [ ] **Testing with Ginkgo**: Are all components testable with Ginkgo BDD style? Is 80% coverage achievable?
+- [ ] **TUI UX Consistency**: Does design follow vim-style navigation and standard TUI conventions?
+- [ ] **Performance Requirements**: Does design meet <100ms startup, <50MB memory, 60fps rendering targets?
+
+Document any violations in Complexity Tracking section below with justification.
 
 ## Project Structure
 
@@ -56,39 +63,37 @@ specs/[###-feature]/
 -->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+# Option 1: Go project (DEFAULT - todotxt-tui)
+cmd/
+├── todotxt-tui/          # Main application entry point
+│   └── main.go
+
+internal/
+├── config/               # Configuration and settings
+├── ui/                   # TUI components and screens
+│   ├── models/
+│   ├── components/
+│   └── views/
+├── parser/               # todo.txt parsing logic
+├── filter/               # Filtering and searching
+├── storage/              # File I/O and persistence
+└── keymap/               # Keyboard handling and shortcuts
+
+pkg/
+└── [optional shared packages]
 
 tests/
-├── contract/
-├── integration/
-└── unit/
+├── unit/                 # Unit tests with Ginkgo
+├── integration/          # Integration tests with Ginkgo
+└── fixtures/             # Test data files
 
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
+docs/
+├── architecture.md
+└── api.md                # If applicable
 
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+go.mod
+go.sum
+Makefile                 # Build and test commands
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real
