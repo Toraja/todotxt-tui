@@ -57,7 +57,7 @@ Users can mark tasks as complete and delete tasks they no longer need. Completed
 
 1. **Given** the application has a task selected, **When** the user presses the complete action key (e.g., `d` or Space), **Then** the task is marked with "x" and today's date
 2. **Given** a task was just completed, **When** the user views the task list, **Then** the completed task appears at the bottom of the list or in a completed section
-3. **Given** the application has a task selected, **When** the user presses the delete action key (e.g., `dd` or D), **Then** the task is removed from the file and list
+3. **Given** the application has a task selected, **When** the user presses the delete action key (e.g., `x` or D), **Then** the task is removed from the file and list
 4. **Given** a completed task exists, **When** the user deletes it, **Then** the task is permanently removed from the todo.txt file
 5. **Given** archive is configured, **When** a task is completed, **Then** the task is moved to done.txt with proper formatting
 
@@ -148,7 +148,7 @@ Users can filter the task list by priority, context, project, or search by text 
 ## Assumptions
 
 - The todo.txt file uses UTF-8 encoding (standard for plain text files)
-- Default todo.txt file location is `~/todo.txt` unless configured otherwise
+- Default todo.txt file location is `~/.local/share/todotxt-tui/todo.txt` unless configured otherwise
 - Users are familiar with vim-style navigation patterns
 - Terminal supports at least 80x24 character dimensions and ANSI color codes
 - System clock provides accurate current date in YYYY-MM-DD format for task completion
