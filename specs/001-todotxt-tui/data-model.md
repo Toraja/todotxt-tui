@@ -33,6 +33,8 @@ type Task struct {
 }
 ```
 
+**Design Note**: `Task.Modified` tracks individual task changes for UI indicators, while `TodoFile.Modified` tracks file-level changes to determine if save is needed. Tasks are always saved atomically as a complete file, not individually.
+
 **Validation Rules**:
 - Priority: Single uppercase letter A-Z, or empty string
 - CreationDate: Must be valid YYYY-MM-DD format or zero time
@@ -81,6 +83,8 @@ type TodoFile struct {
 }
 ```
 
+**Design Note**: `LoadError` enables graceful error handling (e.g., file doesn't exist yet, permission issues, parse errors on specific lines). The TUI displays errors to the user and allows recovery actions (retry, choose different file) rather than exiting abruptly.
+
 **Validation Rules**:
 - Path: Must be valid absolute path with read/write permissions
 - Encoding: Must be UTF-8 (standard for todo.txt)
@@ -102,7 +106,7 @@ type TodoFile struct {
 - `Count() int`: Return total task count
 - `CountCompleted() int`: Return count of completed tasks
 - `CountActive() int`: Return count of active tasks
-- `ReloadIfChanged() bool`: Reload if file modified externally, return true if reloaded
+- `ReloadIfChanged() bool`: Check file modification time; if changed, reload from disk and return true, else return false
 
 ### Filter
 
@@ -176,6 +180,8 @@ type TaskList struct {
     VisibleCount int          // Tasks in VisibleTasks
 }
 ```
+
+**Design Note**: `TodoFile.Tasks` is the persistence layer (owns data, handles file I/O), while `TaskList.AllTasks` is the presentation layer (references same tasks for filtering/sorting). TaskList should not duplicate the slice; it should reference `TodoFile.Tasks` directly. Task modifications are made through TodoFile methods, then TaskList is refreshed.
 
 **SortCriteria Enum**:
 ```go
@@ -260,7 +266,6 @@ type Config struct {
 
 **Methods**:
 - `Load() error`: Load config from file or use defaults
-- `Save() error`: Save config to file
 - `Defaults()`: Return default configuration
 - `Validate() error`: Validate all configuration values
 
