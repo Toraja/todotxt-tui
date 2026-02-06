@@ -653,7 +653,7 @@ func (m *MockParser) ParseLine(line string, lineNumber int) (*parser.Task, error
 // ... other methods
 ```
 
-Use `gomock` for generating mocks automatically.
+Use `gomock` (`github.com/uber-go/mock`) for generating mocks automatically.
 
 ---
 
