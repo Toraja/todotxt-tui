@@ -469,6 +469,19 @@ const (
 - Models must support terminal resize events
 - Models must maintain state for redrawing without external data
 
+**Design Note: Model Immutability**
+
+Models should be immutable to align with the Elm Architecture that bubbletea implements:
+
+- **Framework Design**: Bubbletea's `Update` signature expects a new model to be returned, not in-place mutation
+- **Predictable State**: Immutability makes state transitions explicit (`OldModel + Message → NewModel`)
+- **Concurrency Safety**: Prevents race conditions in bubbletea's concurrent environment
+- **Time-Travel Debugging**: Enables state history without worrying about shared references being modified
+- **Testing**: Pure functions without side effects are simpler to test and reason about
+- **Composability**: Safe to pass models between components without unexpected mutations
+
+Note: "Where possible" acknowledges Go's pragmatic nature—shallow copies with copy-on-write semantics are acceptable for large data structures. The key is avoiding mutation of shared state.
+
 ---
 
 ### App
