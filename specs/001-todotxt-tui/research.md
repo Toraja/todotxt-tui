@@ -124,7 +124,7 @@ Metadata: key:value pairs in description
 
 **Rationale**:
 - Centralized key mapping for easy customization
-- Support normal mode (navigation) and command mode (dialogs/prompts)
+- Support multiple distinct modes: normal mode (navigation), command mode (text input/commands), and dialog mode (confirmation prompts)
 - Clear separation of intent (what) from action (how)
 - Easy to add keybindings in future
 
