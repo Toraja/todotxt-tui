@@ -335,3 +335,20 @@ type Keymap struct {
 - lipgloss documentation: https://github.com/charmbracelet/lipgloss
 - Ginkgo documentation: https://onsi.github.io/ginkgo/
 - Effective Go: https://golang.org/doc/effective_go
+
+## Appendix
+
+### Big O Notation
+
+Big O describes how an algorithm's execution time or space requirements grow as the input size increases, focusing on the dominant factor while ignoring constants and smaller terms.
+
+**Common Orders** (from fastest to slowest):
+
+- **O(1)** - Constant: Same time regardless of input size (array access)
+- **O(log n)** - Logarithmic: Doubles input, adds one operation (binary search)
+- **O(n)** - Linear: Double input, double time (scanning a list)
+- **O(n log n)** - Linearithmic: Efficient sorting algorithms
+- **O(n²)** - Quadratic: Nested loops (bubble sort)
+- **O(2ⁿ)** - Exponential: Trying all combinations (very slow)
+
+For the TUI application, we prioritize O(1) and O(log n) operations for interactive features (scrolling, navigation) and accept O(n) operations for background tasks (file parsing, initial indexing).
