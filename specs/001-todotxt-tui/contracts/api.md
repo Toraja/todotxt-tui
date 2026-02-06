@@ -341,7 +341,12 @@ type TaskListModel interface {
     ScrollDown()
     
     // ScrollUp scrolls up one task
+    ScrollUp()
+    
+    // ScrollToTop scrolls to the top of the task list
     ScrollToTop()
+    
+    // ScrollToBottom scrolls to the bottom of the task list
     ScrollToBottom()
 }
 
