@@ -493,7 +493,7 @@ type App interface {
     GetConfig() *Config
     
     // GetTaskList returns the task list model
-    GetTaskList() TaskListModel
+    GetTaskList() ui.TaskListModel
     
     // GetParser returns the parser instance
     GetParser() parser.Parser
