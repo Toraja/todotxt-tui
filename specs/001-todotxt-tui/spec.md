@@ -84,21 +84,25 @@ Users can filter the task list by priority, context, project, or search by text 
 
 ### Edge Cases
 
-- What happens when the todo.txt file does not exist at startup?
-- What happens when the todo.txt file has invalid or malformed task lines?
-- What happens when the user tries to edit a task to an empty string?
-- What happens when the file is externally modified while the application is running?
-- What happens when the terminal window is resized during use?
-- What happens when a task has multiple priorities or malformed priority tags?
-- What happens when special characters or emoji are used in task text?
-- What happens when the file cannot be saved due to permissions or disk space?
-- What happens when a task line exceeds the terminal width?
-- What happens when there are no tasks in the file?
-- What happens when an unrecognized keyboard shortcut is pressed?
-- What happens when the user tries to delete the last remaining task?
-- What happens when trying to increase priority of a task already at (A)?
-- What happens when trying to complete an already completed task?
-- What happens when Esc is pressed outside of any active operation (no dialogs open)?
+The following edge cases require explicit handling. Defined behaviors are specified in the Edge Case Requirements section (FR-021 through FR-036):
+
+- **File not found**: Create empty file (FR-021)
+- **Invalid task lines**: Display with warning, continue parsing (FR-022)
+- **Empty task edit**: Reject with validation error (FR-023)
+- **External modifications**: Prompt to reload (FR-024)
+- **Terminal resize**: Recalculate viewport, redraw (FR-025)
+- **Malformed priorities**: Use first valid or none (FR-026)
+- **Special characters/emoji**: Display correctly via UTF-8 (FR-027)
+- **Save failures**: Show error, queue retry (FR-028)
+- **Long task lines**: Wrap/truncate display (FR-029)
+- **Empty file**: Show empty state message (FR-030)
+- **Unknown shortcuts**: Ignore silently (FR-031)
+- **Delete last task**: Allow, result in empty file (FR-032)
+- **Priority boundaries**: Maintain at limits (FR-033, FR-034)
+- **Re-complete task**: Toggle to incomplete (FR-035)
+- **Esc outside dialog**: No-op, don't quit (FR-036)
+
+See Functional Requirements section for complete specifications.
 
 ### Keyboard Shortcuts
 
@@ -115,8 +119,8 @@ Users can filter the task list by priority, context, project, or search by text 
 - `u` - Undo last delete (single-level undo)
 
 **Priority Editing**:
-- `+` / `-` - Increase/decrease priority of selected task (A→B→C→...→no priority)
-- `0` - Remove priority from selected task
+- `+` / `-` - Increase/decrease priority of selected task (A→B→C→...→no priority). At boundaries: `+` on (A) maintains (A), `-` on no priority maintains no priority (FR-033, FR-034)
+- `0` - Remove priority from selected task (sets to no priority regardless of current value)
 
 **Filtering and Searching**:
 - `/` - Open search prompt to filter by text
@@ -161,6 +165,25 @@ Users can filter the task list by priority, context, project, or search by text 
 - **FR-018**: System MUST handle invalid task lines gracefully (display as-is or show warning)
 - **FR-019**: System MUST support keyboard shortcuts for common actions (create, edit, complete, delete, filter, search, quit)
 - **FR-020**: System MUST display a help screen showing available keyboard shortcuts
+
+### Edge Case Requirements
+
+- **FR-021**: System MUST create an empty todo.txt file with default permissions when file does not exist at startup
+- **FR-022**: System MUST display invalid task lines as-is with a warning indicator and continue parsing remaining lines
+- **FR-023**: System MUST reject attempts to edit a task to an empty string and display validation error "Task description cannot be empty"
+- **FR-024**: System MUST prompt user to reload when external file modification is detected (via file watcher or manual 'r' key)
+- **FR-025**: System MUST handle terminal resize events by recalculating viewport dimensions and redrawing without data loss
+- **FR-026**: System MUST parse tasks with multiple or malformed priority tags by using the first valid priority (A-Z) or treating as no priority if none valid
+- **FR-027**: System MUST display special characters and emoji in task descriptions using UTF-8 encoding without corruption
+- **FR-028**: System MUST display error message and prevent save when file write fails due to permissions or disk space, queuing changes for retry
+- **FR-029**: System MUST wrap or truncate task lines exceeding terminal width (preserving full text in file), with full text viewable via detail view
+- **FR-030**: System MUST display empty state message "No tasks. Press 'a' to add your first task." when file contains zero tasks
+- **FR-031**: System MUST ignore unrecognized keyboard shortcuts (no action, no error message)
+- **FR-032**: System MUST allow deletion of the last remaining task (resulting in empty file with zero tasks)
+- **FR-033**: System MUST maintain priority at (A) when user presses '+' key to increase priority beyond maximum
+- **FR-034**: System MUST maintain no priority state when user presses '-' key to decrease priority below minimum
+- **FR-035**: System MUST toggle completion status when user marks an already-completed task as complete (reverting to incomplete)
+- **FR-036**: System MUST treat Esc key as no-op when pressed outside of active dialog/operation (does NOT quit application)
 
 ### Key Entities
 
