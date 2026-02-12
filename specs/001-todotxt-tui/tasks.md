@@ -142,6 +142,7 @@ Based on plan.md project structure:
 - [ ] T070 [US1] Add terminal resize handling in internal/ui/models/tasklist.go Update method
 - [ ] T071 [US1] Implement empty state display when no tasks exist in internal/ui/components/empty_state.go
 - [ ] T072 [US1] Integrate keymap for navigation keys (j/k/g/G) with TaskListModel in internal/ui/app.go
+- [ ] T072a [US1] Implement detail view for displaying full untruncated task text when Enter key pressed in internal/ui/models/detail_view.go
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -306,7 +307,7 @@ Based on plan.md project structure:
 - [ ] T163 [P] Create status bar component in internal/ui/components/status_bar.go showing task count, filter status, file path
 - [ ] T164 Add timestamp display for last save in internal/ui/components/status_bar.go
 - [ ] T165 Add progress indicator for loading large files in internal/ui/components/progress.go
-- [ ] T166 Implement line wrapping for long task descriptions in internal/ui/components/task_renderer.go
+- [ ] T166 Implement line truncation with visual indicator "…" for long task descriptions exceeding terminal width in internal/ui/components/task_renderer.go
 
 ### Performance Optimization
 
@@ -454,10 +455,10 @@ With multiple developers:
 
 ## Task Summary
 
-**Total Tasks**: 195
+**Total Tasks**: 196
 - **Phase 1 Setup**: 7 tasks (T001-T007)
 - **Phase 2 Foundational**: 47 tasks (T008-T054)
-- **Phase 3 User Story 1**: 18 tasks (T055-T072)
+- **Phase 3 User Story 1**: 19 tasks (T055-T072a)
 - **Phase 4 User Story 2**: 20 tasks (T073-T092)
 - **Phase 5 User Story 3**: 20 tasks (T093-T112)
 - **Phase 6 User Story 4**: 24 tasks (T113-T136)
@@ -465,7 +466,7 @@ With multiple developers:
 
 **Parallel Opportunities**: ~80 tasks marked [P] can run in parallel with proper coordination
 
-**MVP Scope (Recommended)**: Phases 1-3 (T001-T072) = 72 tasks for basic working application
+**MVP Scope (Recommended)**: Phases 1-3 (T001-T072a) = 73 tasks for basic working application
 
 **Test Coverage**: 57 dedicated test tasks ensuring 80%+ coverage (constitution requirement)
 

@@ -176,7 +176,7 @@ See Functional Requirements section for complete specifications.
 - **FR-026**: System MUST parse tasks with multiple or malformed priority tags by using the first valid priority (A-Z) or treating as no priority if none valid
 - **FR-027**: System MUST display special characters and emoji in task descriptions using UTF-8 encoding without corruption
 - **FR-028**: System MUST display error message and prevent save when file write fails due to permissions or disk space, queuing changes for retry
-- **FR-029**: System MUST wrap or truncate task lines exceeding terminal width (preserving full text in file), with full text viewable via detail view
+- **FR-029**: System MUST truncate task lines exceeding terminal width with visual indicator "…" (preserving full text in file), with full text viewable via detail view using Enter key
 - **FR-030**: System MUST display empty state message "No tasks. Press 'a' to add your first task." when file contains zero tasks
 - **FR-031**: System MUST ignore unrecognized keyboard shortcuts (no action, no error message)
 - **FR-032**: System MUST allow deletion of the last remaining task (resulting in empty file with zero tasks)
@@ -218,7 +218,7 @@ See Functional Requirements section for complete specifications.
 - Terminal supports at least 80x24 character dimensions and ANSI color codes
 - System clock provides accurate current date in YYYY-MM-DD format for task completion
 - File system permissions allow read/write access to the todo.txt file location
-- Tasks are limited to reasonable length for display (no hard limit enforced, but 500+ characters may need truncation or wrapping)
+- Tasks support arbitrary length with no hard limit enforced; display truncates lines exceeding terminal width with visual indicator "…"; full text viewable in detail view via Enter key
 - Contexts and projects are single words without spaces (per todo.txt specification)
 - Completed tasks should be sorted to the bottom of the list by default
 - Application should not require network connectivity or external services
