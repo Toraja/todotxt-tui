@@ -26,13 +26,13 @@ Based on plan.md project structure:
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project directory structure: cmd/todotxt-tui/, internal/{config,ui,parser,filter,storage,keymap}/, tests/{unit,integration,fixtures}/, docs/
-- [ ] T002 Initialize Go module with go mod init and add dependencies: bubbletea, lipgloss, ginkgo/v2, gomega
-- [ ] T003 [P] Create Makefile with targets: build, run, test, lint, clean
-- [ ] T004 [P] Setup .gitignore for Go project (bin/, *.test, coverage.out)
-- [ ] T005 [P] Create initial README.md with project description and build instructions
-- [ ] T006 [P] Setup golangci-lint configuration in .golangci.yml
-- [ ] T007 [P] Create default config directory structure at ~/.local/share/todotxt-tui/ and ~/.config/todotxt-tui/
+- [X] T001 Create project directory structure: cmd/todotxt-tui/, internal/{config,ui,parser,filter,storage,keymap}/, tests/{unit,integration,fixtures}/, docs/
+- [X] T002 Initialize Go module with go mod init and add dependencies: bubbletea, lipgloss, ginkgo/v2, gomega
+- [X] T003 [P] Create Makefile with targets: build, run, test, lint, clean
+- [X] T004 [P] Setup .gitignore for Go project (bin/, *.test, coverage.out)
+- [X] T005 [P] Create initial README.md with project description and build instructions
+- [X] T006 [P] Setup golangci-lint configuration in .golangci.yml
+- [X] T007 [P] Create default config directory structure at ~/.local/share/todotxt-tui/ and ~/.config/todotxt-tui/
 
 ---
 

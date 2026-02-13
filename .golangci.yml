@@ -1,0 +1,75 @@
+run:
+  timeout: 5m
+  tests: true
+  modules-download-mode: readonly
+
+linters:
+  enable:
+    - errcheck      # Check for unchecked errors
+    - gosimple      # Simplify code
+    - govet         # Go vet analyzer
+    - ineffassign   # Detect ineffectual assignments
+    - staticcheck   # Advanced linting
+    - unused        # Check for unused code
+    - gofmt         # Check formatting
+    - goimports     # Check imports
+    - misspell      # Check for misspelled words
+    - revive        # Fast, configurable, extensible linter
+    - goconst       # Find repeated strings
+    - gocyclo       # Check cyclomatic complexity
+    - dupl          # Find duplicated code
+    - gosec         # Security checks
+    - unconvert     # Unnecessary type conversions
+    - prealloc      # Find slice preallocation opportunities
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+
+  govet:
+    enable-all: true
+
+  gocyclo:
+    min-complexity: 15
+
+  dupl:
+    threshold: 100
+
+  revive:
+    rules:
+      - name: exported
+        arguments:
+          - "checkPrivateReceivers"
+      - name: var-naming
+      - name: package-comments
+      - name: indent-error-flow
+      - name: error-return
+      - name: error-strings
+      - name: receiver-naming
+      - name: increment-decrement
+      - name: range
+
+  misspell:
+    locale: US
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - dupl
+        - gosec
+        - errcheck
+    - path: tests/
+      linters:
+        - dupl
+        - gosec
+        - errcheck
+
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
