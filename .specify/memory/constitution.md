@@ -1,13 +1,15 @@
 <!--
 Sync Impact Report:
-- Version change: 1.0.0 → 1.0.1
-- Modified principles: None
-- Modified sections: Development Workflow (gofmt → goimports)
+- Version change: 1.0.1 → 1.0.2
+- Modified principles: I. Go Code Quality Standards, Development Workflow
+- Modified sections: Removed redundant 'go vet' references (govet already enabled in golangci-lint)
 - Added sections: None
 - Removed sections: None
 - Templates requiring updates:
-  - ✅ All templates remain compatible
-- Follow-up TODOs: None
+  - .specify/templates/tasks-template.md (remove go vet from tooling setup)
+  - specs/001-todotxt-tui/tasks.md (remove T190 go vet task)
+  - specs/001-todotxt-tui/quickstart.md (update lint workflow documentation)
+- Follow-up TODOs: Update dependent files listed above
 -->
 
 # todotxt-tui Constitution
@@ -18,8 +20,7 @@ Sync Impact Report:
 
 All code MUST follow Go best practices and idiomatic patterns:
 - Run `goimports -w .` on all Go files before committing
-- Run `golangci-lint run` and fix all reported issues
-- Run `go vet ./...` before commits
+- Run `golangci-lint run` and fix all reported issues (includes govet checks)
 - Follow Effective Go guidelines (https://golang.org/doc/effective_go)
 - Use clear, descriptive names; avoid abbreviations unless widely known
 - Export functions and types only when necessary; prefer package-private for internal implementation
@@ -28,7 +29,7 @@ All code MUST follow Go best practices and idiomatic patterns:
 - Document exported packages, types, functions, and constants with godoc comments
 - Structure packages by domain logic, not by architectural layers
 
-**Rationale**: Go's simplicity and tooling ecosystem enable high-quality, maintainable code when conventions are followed consistently. These standards ensure code readability, catch common mistakes early, and align with the broader Go community.
+**Rationale**: Go's simplicity and tooling ecosystem enable high-quality, maintainable code when conventions are followed consistently. These standards ensure code readability, catch common mistakes early, and align with the broader Go community. Note that `go vet` is included in golangci-lint via the `govet` linter, eliminating the need for separate execution.
 
 ### II. Testing with Ginkgo (NON-NEGOTIABLE)
 
@@ -115,9 +116,8 @@ All development MUST follow this workflow to ensure quality:
 1. Run `go mod tidy` to ensure dependencies are clean
 2. Run `goimports -w .` to format all code
 3. Run `golangci-lint run` and fix all issues
-4. Run `go vet ./...` and fix all warnings
-5. Run `ginkgo -r --randomize-all --fail-on-pending --cover` and ensure all tests pass
-6. Verify test coverage meets 80% threshold
+4. Run `ginkgo -r --randomize-all --fail-on-pending --cover` and ensure all tests pass
+5. Verify test coverage meets 80% threshold
 
 **Branching Strategy**:
 - Use feature branches: `feature/short-description`
@@ -133,7 +133,7 @@ All development MUST follow this workflow to ensure quality:
 
 **Continuous Integration**:
 - CI pipeline MUST run on every pull request
-- CI MUST execute: `go mod tidy`, `goimports`, `golangci-lint`, `go vet`, `ginkgo -r`
+- CI MUST execute: `go mod tidy`, `goimports`, `golangci-lint`, `ginkgo -r`
 - CI MUST measure and report test coverage
 - CI MUST fail if any step fails
 - CI MUST include performance benchmarks for critical paths
@@ -166,4 +166,4 @@ This constitution supersedes all other development practices and guidelines. All
 
 **Rationale**: A clear governance process ensures the constitution evolves deliberately while maintaining stability. Versioning tracks changes and communicates impact to developers.
 
-**Version**: 1.0.1 | **Ratified**: 2026-02-01 | **Last Amended**: 2026-02-01
+**Version**: 1.0.2 | **Ratified**: 2026-02-01 | **Last Amended**: 2026-02-13

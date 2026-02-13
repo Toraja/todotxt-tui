@@ -50,7 +50,7 @@ description: "Task list template for feature implementation"
 
 - [ ] T001 Create project structure per implementation plan
 - [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure Go tooling: goimports, golangci-lint, go vet
+- [ ] T003 [P] Configure Go tooling: goimports, golangci-lint
 
 ---
 
@@ -154,7 +154,6 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX [P] Documentation updates in docs/
 - [ ] TXXX Code cleanup and refactoring
 - [ ] TXXX Run golangci-lint and fix issues
-- [ ] TXXX Run go vet ./... and fix warnings
 - [ ] TXXX Run ginkgo -r --cover and verify 80% coverage
 - [ ] TXXX Run performance benchmarks and verify targets
 - [ ] TXXX Security hardening

@@ -83,9 +83,8 @@ make lint
 This runs:
 1. `go mod tidy` - Clean up dependencies
 2. `goimports -w .` - Format code
-3. `golangci-lint run` - Lint code
-4. `go vet ./...` - Vet code
-5. `ginkgo -r --fail-on-pending --cover` - Run tests
+3. `golangci-lint run` - Lint code (includes govet checks)
+4. `ginkgo -r --fail-on-pending --cover` - Run tests
 
 ### Adding Features
 

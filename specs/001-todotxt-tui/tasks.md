@@ -343,12 +343,11 @@ Based on plan.md project structure:
 
 - [ ] T188 Run ginkgo -r --cover and verify 80% coverage threshold
 - [ ] T189 Run golangci-lint run ./... and fix all issues
-- [ ] T190 Run go vet ./... and fix all warnings
-- [ ] T191 Run goimports -w . to format all code
-- [ ] T192 Run go mod tidy to clean up dependencies
-- [ ] T193 Verify quickstart.md instructions work end-to-end in tests/integration/quickstart_test.go
-- [ ] T194 Run performance benchmarks and verify <100ms startup, <50MB memory targets
-- [ ] T195 Test application with sample 1000-task and 10,000-task files from tests/fixtures/todo/large_*.txt
+- [ ] T190 Run goimports -w . to format all code
+- [ ] T191 Run go mod tidy to clean up dependencies
+- [ ] T192 Verify quickstart.md instructions work end-to-end in tests/integration/quickstart_test.go
+- [ ] T193 Run performance benchmarks and verify <100ms startup, <50MB memory targets
+- [ ] T194 Test application with sample 1000-task and 10,000-task files from tests/fixtures/todo/large_*.txt
 
 ---
 

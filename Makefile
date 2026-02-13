@@ -20,7 +20,6 @@ lint:
 	@go mod tidy
 	@goimports -w .
 	@golangci-lint run ./...
-	@go vet ./...
 
 # Clean build artifacts
 clean:
