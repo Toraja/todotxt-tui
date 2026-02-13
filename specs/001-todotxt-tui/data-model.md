@@ -17,19 +17,19 @@ Represents a single todo item with full todo.txt format support.
 ```go
 type Task struct {
     // Core fields (from todo.txt spec)
-    Priority        string        // A-Z uppercase letter, empty if no priority
-    CreationDate    time.Time     // Creation date in YYYY-MM-DD format, zero if not specified
-    Completed       bool          // True if task is completed
-    CompletionDate  time.Time     // Completion date in YYYY-MM-DD format, zero if not completed
-    Description     string        // Task description text
-    Contexts        []string      // List of @context tags
-    Projects        []string      // List of +project tags
-    Metadata        map[string]string // Additional key:value pairs from description
+    Priority        string              // A-Z uppercase letter, empty if no priority
+    CreationDate    time.Time           // Creation date in YYYY-MM-DD format, zero if not specified
+    Completed       bool                // True if task is completed
+    CompletionDate  time.Time           // Completion date in YYYY-MM-DD format, zero if not completed
+    Description     string              // Task description text
+    Contexts        map[string]struct{} // List of @context tags
+    Projects        map[string]struct{} // List of +project tags
+    Metadata        map[string]string   // Additional key:value pairs from description
     
     // Bookkeeping fields
-    RawLine         string        // Original line from file (for preservation)
-    LineNumber      int           // Line number in source file (1-indexed)
-    Modified        bool          // True if task has unsaved changes
+    RawLine         string              // Original line from file (for preservation)
+    LineNumber      int                 // Line number in source file (1-indexed)
+    Modified        bool                // True if task has unsaved changes
 }
 ```
 

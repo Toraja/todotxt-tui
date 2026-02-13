@@ -146,8 +146,8 @@ task := &parser.Task{
     Priority:      "A",
     CreationDate:  time.Now(),
     Description:   "Buy groceries @store +household",
-    Contexts:      []string{"@store"},
-    Projects:      []string{"+household"},
+    Contexts:      map[string]struct{}{"@store", {}},
+    Projects:      map[string]struct{}{"+household", {}},
 }
 
 // Add to TodoFile

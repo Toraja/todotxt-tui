@@ -49,8 +49,8 @@ type Task struct {
     Completed       bool
     CompletionDate  time.Time
     Description     string
-    Contexts        []string
-    Projects        []string
+    Contexts        map[string]struct{}
+    Projects        map[string]struct{}
     Metadata        map[string]string
     RawLine         string
     LineNumber      int

@@ -92,16 +92,16 @@ Research findings for implementing todotxt-tui, a terminal UI application for ma
 ```go
 // Task structure based on spec
 type Task struct {
-    Priority      string        // A-Z or empty
-    CreationDate  time.Time     // YYYY-MM-DD or zero
+    Priority      string              // A-Z or empty
+    CreationDate  time.Time           // YYYY-MM-DD or zero
     Completed     bool
-    CompletionDate time.Time    // YYYY-MM-DD if completed
+    CompletionDate time.Time          // YYYY-MM-DD if completed
     Description   string
-    Contexts      []string      // @tags
-    Projects      []string      // +tags
-    Metadata      map[string]string // key:value pairs
-    RawLine       string        // Original line for preservation
-    LineNumber    int           // For error reporting
+    Contexts      map[string]struct{} // @tags
+    Projects      map[string]struct{} // +tags
+    Metadata      map[string]string   // key:value pairs
+    RawLine       string              // Original line for preservation
+    LineNumber    int                 // For error reporting
 }
 ```
 
