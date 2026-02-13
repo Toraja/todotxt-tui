@@ -35,7 +35,7 @@ install-tools:
 	@echo "Installing development tools..."
 	@go install github.com/onsi/ginkgo/v2/ginkgo@latest
 	@go install golang.org/x/tools/cmd/goimports@latest
-	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	@curl -sSfL https://golangci-lint.run/install.sh | sh -s -- -b $$(go env GOPATH)/bin
 
 # Run tests with coverage report
 coverage:
