@@ -83,9 +83,9 @@ Examples of foundational tasks (adjust based on your project):
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Unit test with Ginkgo in tests/unit/test_[name]_test.go
+- [ ] T010 [P] [US1] Unit test with Ginkgo adjacent to source (e.g., internal/[package]/[name]_test.go)
 - [ ] T011 [P] [US1] Integration test with Ginkgo in tests/integration/test_[name]_test.go
-- [ ] T012 [P] [US1] Table-driven test for edge cases in tests/unit/test_[name]_table_test.go
+- [ ] T012 [P] [US1] Table-driven test for edge cases adjacent to source (e.g., internal/[package]/[name]_test.go)
 
 ### Implementation for User Story 1
 
@@ -108,7 +108,7 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 2 (REQUIRED - Ginkgo BDD) ⚠️
 
-- [ ] T018 [P] [US2] Unit test with Ginkgo in tests/unit/test_[name]_test.go
+- [ ] T018 [P] [US2] Unit test with Ginkgo adjacent to source (e.g., internal/[package]/[name]_test.go)
 - [ ] T019 [P] [US2] Integration test with Ginkgo in tests/integration/test_[name]_test.go
 
 ### Implementation for User Story 2
@@ -130,7 +130,7 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 3 (REQUIRED - Ginkgo BDD) ⚠️
 
-- [ ] T024 [P] [US3] Unit test with Ginkgo in tests/unit/test_[name]_test.go
+- [ ] T024 [P] [US3] Unit test with Ginkgo adjacent to source (e.g., internal/[package]/[name]_test.go)
 - [ ] T025 [P] [US3] Integration test with Ginkgo in tests/integration/test_[name]_test.go
 
 ### Implementation for User Story 3

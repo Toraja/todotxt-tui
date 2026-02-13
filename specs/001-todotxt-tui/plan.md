@@ -73,7 +73,6 @@ internal/
 └── keymap/               # Keyboard handling and shortcuts
 
 tests/
-├── unit/                 # Unit tests with Ginkgo
 ├── integration/          # Integration tests with Ginkgo
 └── fixtures/             # Test data files
 

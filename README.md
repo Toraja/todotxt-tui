@@ -142,8 +142,7 @@ make install-tools
 │   ├── filter/             # Filtering and search
 │   ├── storage/            # File I/O and persistence
 │   └── keymap/             # Keyboard handling
-├── tests/
-│   ├── unit/               # Unit tests
+├── tests/                  # Unit tests are adjacent to source files (e.g., internal/parser/parser_test.go)
 │   ├── integration/        # Integration tests
 │   └── fixtures/           # Test data
 └── docs/                   # Documentation

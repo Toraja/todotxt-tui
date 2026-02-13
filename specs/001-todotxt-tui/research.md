@@ -224,7 +224,6 @@ type Keymap struct {
 - `internal/filter`: Filtering and search logic
 - `internal/keymap`: Keyboard bindings and handling
 - `internal/ui`: TUI models, components, views
-- `tests/unit`: Unit tests for each package
 - `tests/integration`: End-to-end tests
 
 ### Error Handling Strategy

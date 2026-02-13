@@ -18,7 +18,10 @@
 Based on plan.md project structure:
 - **cmd/todotxt-tui/**: Main application entry point
 - **internal/**: Private packages (config, ui, parser, filter, storage, keymap)
-- **tests/**: Unit and integration tests
+  - Unit tests adjacent to source files (e.g., internal/parser/task_test.go)
+- **tests/**: Integration tests and fixtures only
+  - tests/integration/: Integration tests
+  - tests/fixtures/: Test data and sample files
 
 ---
 
@@ -45,23 +48,23 @@ Based on plan.md project structure:
 ### Parser - todo.txt Format Support
 
 - [X] T008 [P] Create Task struct in internal/parser/task.go with all todo.txt fields (Priority, CreationDate, Completed, CompletionDate, Description, Contexts, Projects, Metadata, RawLine, LineNumber, Modified)
-- [X] T009 [P] Write Ginkgo unit tests for Task struct in tests/unit/parser/task_test.go
+- [X] T009 [P] Write Ginkgo unit tests for Task struct in internal/parser/task_test.go
 - [X] T010 [P] Implement Parser interface in internal/parser/parser.go with ParseLine, ParseFile, Serialize, Validate methods
-- [X] T011 [P] Write Ginkgo unit tests for Parser.ParseLine in tests/unit/parser/parser_test.go with table-driven tests for all todo.txt format cases (priority, dates, contexts, projects, completion)
-- [X] T012 [P] Write Ginkgo unit tests for Parser.ParseFile in tests/unit/parser/parser_file_test.go
+- [X] T011 [P] Write Ginkgo unit tests for Parser.ParseLine in internal/parser/parser_test.go with table-driven tests for all todo.txt format cases (priority, dates, contexts, projects, completion)
+- [X] T012 [P] Write Ginkgo unit tests for Parser.ParseFile in internal/parser/parser_test.go
 - [X] T013 Implement ParseLine method with regex patterns for priority, dates, contexts, projects, metadata extraction in internal/parser/parser.go
 - [X] T014 Implement ParseFile method for parsing entire file content in internal/parser/parser.go
 - [X] T015 Implement Serialize method to convert Task to todo.txt format string in internal/parser/parser.go
 - [X] T016 Implement date parsing helper ParseTodoDate(dateStr string) (time.Time, error) in internal/parser/date.go
-- [X] T017 [P] Write Ginkgo unit tests for date parsing in tests/unit/parser/date_test.go
+- [X] T017 [P] Write Ginkgo unit tests for date parsing in internal/parser/date_test.go
 - [X] T018 Implement context/project tag validation helpers (ValidateContextTag, ValidateProjectTag) in internal/parser/validation.go
-- [X] T019 [P] Write Ginkgo unit tests for tag validation in tests/unit/parser/validation_test.go
+- [X] T019 [P] Write Ginkgo unit tests for tag validation in internal/parser/validation_test.go
 
 ### Storage - File I/O and Persistence
 
 - [X] T020 [P] Create Storage interface in internal/storage/storage.go with Load, Save, Watch, Exists, Create, GetModificationTime methods
 - [X] T021 [P] Create FileEvent struct and EventType enum in internal/storage/event.go
-- [ ] T022 [P] Write Ginkgo unit tests for Storage interface in tests/unit/storage/storage_test.go
+- [ ] T022 [P] Write Ginkgo unit tests for Storage interface in internal/storage/storage_test.go
 - [X] T023 Implement FileStorage struct with atomic write logic (temp file + rename) in internal/storage/file_storage.go
 - [X] T024 Implement Load method with UTF-8 encoding and error handling in internal/storage/file_storage.go
 - [X] T025 Implement Save method with atomic write (write to temp, rename on success) in internal/storage/file_storage.go
@@ -72,7 +75,7 @@ Based on plan.md project structure:
 ### Configuration Management
 
 - [X] T029 [P] Create Config struct in internal/config/config.go with all settings (TodoFilePath, DoneFilePath, Theme, ShowCompleted, ArchiveCompleted, ConfirmDelete, AutoSave, FileWatchEnabled)
-- [ ] T030 [P] Write Ginkgo unit tests for Config in tests/unit/config/config_test.go
+- [ ] T030 [P] Write Ginkgo unit tests for Config in internal/config/config_test.go
 - [X] T031 Implement config loading from YAML file in internal/config/loader.go with environment variable overrides
 - [X] T032 Implement default configuration values in internal/config/defaults.go
 - [X] T033 Implement config validation in internal/config/validation.go
@@ -81,17 +84,17 @@ Based on plan.md project structure:
 ### Data Model Core
 
 - [X] T035 [P] Create TodoFile struct in internal/storage/todofile.go with Tasks, Path, LastModified, Modified, Loaded, LoadError fields
-- [ ] T036 [P] Write Ginkgo unit tests for TodoFile in tests/unit/storage/todofile_test.go
+- [ ] T036 [P] Write Ginkgo unit tests for TodoFile in internal/storage/todofile_test.go
 - [X] T037 Implement TodoFile methods: Load, Save, AddTask, UpdateTask, DeleteTask, GetTask, Count, CountCompleted, CountActive, ReloadIfChanged in internal/storage/todofile.go
 - [X] T038 [P] Create TaskList struct in internal/filter/tasklist.go with AllTasks, ActiveFilters, FilterLogic, SortBy, SortOrder, VisibleTasks, SelectedIndex, ScrollOffset, ViewportSize fields
-- [ ] T039 [P] Write Ginkgo unit tests for TaskList in tests/unit/filter/tasklist_test.go
+- [ ] T039 [P] Write Ginkgo unit tests for TaskList in internal/filter/tasklist_test.go
 
 ### Filter and Search Infrastructure
 
 - [X] T040 [P] Create Filter interface in internal/filter/filter.go with Apply, BuildIndex, Search, FilterByPriority, FilterByContext, FilterByProject, FilterByCompletion methods
 - [X] T041 [P] Create FilterCriteria struct and FilterLogic enum in internal/filter/criteria.go
 - [X] T042 [P] Create Index struct with priority, context, project, completion indexes in internal/filter/index.go
-- [ ] T043 [P] Write Ginkgo unit tests for Filter interface in tests/unit/filter/filter_test.go
+- [ ] T043 [P] Write Ginkgo unit tests for Filter interface in internal/filter/filter_test.go
 - [X] T044 Implement Filter implementation with indexing logic in internal/filter/filter_impl.go
 - [X] T045 Implement BuildIndex method to create lookup maps in internal/filter/index.go
 - [X] T046 Implement Apply method with AND/OR combination logic in internal/filter/filter_impl.go
@@ -102,7 +105,7 @@ Based on plan.md project structure:
 
 - [X] T049 [P] Create Keymap interface in internal/keymap/keymap.go with GetBinding, SetBinding, GetAvailableActions, GetKeysForAction methods
 - [X] T050 [P] Create Mode enum (Normal, Insert, Dialog, Search) and Action enum in internal/keymap/types.go
-- [ ] T051 [P] Write Ginkgo unit tests for Keymap in tests/unit/keymap/keymap_test.go
+- [ ] T051 [P] Write Ginkgo unit tests for Keymap in internal/keymap/keymap_test.go
 - [X] T052 Implement default vim-style keybindings in internal/keymap/defaults.go (j/k/g/G/h/l/a/e/Space/d/+/-/0///f/c/r/s/q/Esc/?/F1)
 - [X] T053 Implement Keymap implementation in internal/keymap/keymap_impl.go
 - [ ] T054 Implement Handler interface for processing key events in internal/keymap/handler.go
@@ -121,8 +124,8 @@ Based on plan.md project structure:
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T055 [P] [US1] Write Ginkgo unit tests for TaskListModel in tests/unit/ui/models/tasklist_model_test.go
-- [ ] T056 [P] [US1] Write Ginkgo unit tests for task rendering in tests/unit/ui/components/task_renderer_test.go
+- [ ] T055 [P] [US1] Write Ginkgo unit tests for TaskListModel in internal/ui/models/tasklist_model_test.go
+- [ ] T056 [P] [US1] Write Ginkgo unit tests for task rendering in internal/ui/components/task_renderer_test.go
 - [ ] T057 [P] [US1] Write Ginkgo integration test for loading todo.txt and displaying tasks in tests/integration/ui/view_tasks_test.go
 - [ ] T058 [P] [US1] Write Ginkgo integration test for navigation (j/k/g/G) in tests/integration/ui/navigation_test.go
 
@@ -156,9 +159,9 @@ Based on plan.md project structure:
 
 ### Tests for User Story 2 (REQUIRED - Ginkgo BDD) ⚠️
 
-- [ ] T073 [P] [US2] Write Ginkgo unit tests for DialogModel in tests/unit/ui/models/dialog_model_test.go
-- [ ] T074 [P] [US2] Write Ginkgo unit tests for task creation logic in tests/unit/ui/actions/create_task_test.go
-- [ ] T075 [P] [US2] Write Ginkgo unit tests for task editing logic in tests/unit/ui/actions/edit_task_test.go
+- [ ] T073 [P] [US2] Write Ginkgo unit tests for DialogModel in internal/ui/models/dialog_model_test.go
+- [ ] T074 [P] [US2] Write Ginkgo unit tests for task creation logic in internal/ui/actions/create_task_test.go
+- [ ] T075 [P] [US2] Write Ginkgo unit tests for task editing logic in internal/ui/actions/edit_task_test.go
 - [ ] T076 [P] [US2] Write Ginkgo integration test for creating task with all format elements in tests/integration/ui/create_task_test.go
 - [ ] T077 [P] [US2] Write Ginkgo integration test for editing task and persistence in tests/integration/ui/edit_task_test.go
 
@@ -192,12 +195,12 @@ Based on plan.md project structure:
 
 ### Tests for User Story 3 (REQUIRED - Ginkgo BDD) ⚠️
 
-- [ ] T093 [P] [US3] Write Ginkgo unit tests for task completion logic in tests/unit/ui/actions/complete_task_test.go
-- [ ] T094 [P] [US3] Write Ginkgo unit tests for task deletion logic in tests/unit/ui/actions/delete_task_test.go
-- [ ] T095 [P] [US3] Write Ginkgo unit tests for confirmation dialog in tests/unit/ui/models/confirm_dialog_test.go
+- [ ] T093 [P] [US3] Write Ginkgo unit tests for task completion logic in internal/ui/actions/complete_task_test.go
+- [ ] T094 [P] [US3] Write Ginkgo unit tests for task deletion logic in internal/ui/actions/delete_task_test.go
+- [ ] T095 [P] [US3] Write Ginkgo unit tests for confirmation dialog in internal/ui/models/confirm_dialog_test.go
 - [ ] T096 [P] [US3] Write Ginkgo integration test for completing task and verification in tests/integration/ui/complete_task_test.go
 - [ ] T097 [P] [US3] Write Ginkgo integration test for deleting task with confirmation in tests/integration/ui/delete_task_test.go
-- [ ] T098 [P] [US3] Write Ginkgo unit tests for archive logic in tests/unit/storage/archive_test.go
+- [ ] T098 [P] [US3] Write Ginkgo unit tests for archive logic in internal/storage/archive_test.go
 
 ### Implementation for User Story 3
 
@@ -228,9 +231,9 @@ Based on plan.md project structure:
 
 ### Tests for User Story 4 (REQUIRED - Ginkgo BDD) ⚠️
 
-- [ ] T113 [P] [US4] Write Ginkgo unit tests for FilterPanelModel in tests/unit/ui/models/filter_panel_test.go
-- [ ] T114 [P] [US4] Write Ginkgo unit tests for search functionality in tests/unit/filter/search_test.go
-- [ ] T115 [P] [US4] Write Ginkgo unit tests for filter combination (AND/OR) in tests/unit/filter/combination_test.go
+- [ ] T113 [P] [US4] Write Ginkgo unit tests for FilterPanelModel in internal/ui/models/filter_panel_test.go
+- [ ] T114 [P] [US4] Write Ginkgo unit tests for search functionality in internal/filter/search_test.go
+- [ ] T115 [P] [US4] Write Ginkgo unit tests for filter combination (AND/OR) in internal/filter/combination_test.go
 - [ ] T116 [P] [US4] Write Ginkgo integration test for filtering by priority in tests/integration/ui/filter_priority_test.go
 - [ ] T117 [P] [US4] Write Ginkgo integration test for filtering by context/project in tests/integration/ui/filter_tags_test.go
 - [ ] T118 [P] [US4] Write Ginkgo integration test for text search in tests/integration/ui/search_test.go
@@ -267,7 +270,7 @@ Based on plan.md project structure:
 ### Error Handling and Messages
 
 - [ ] T137 [P] Create ErrorModel in internal/ui/models/error.go for displaying errors with SetError, Show, Hide methods
-- [ ] T138 [P] Write Ginkgo unit tests for ErrorModel in tests/unit/ui/models/error_test.go
+- [ ] T138 [P] Write Ginkgo unit tests for ErrorModel in internal/ui/models/error_test.go
 - [ ] T139 Implement error display as non-blocking toast in internal/ui/components/error_toast.go
 - [ ] T140 Add ErrorMsg message type in internal/ui/messages.go
 - [ ] T141 Add error handling for file not found (create empty file) in internal/storage/file_storage.go
@@ -288,7 +291,7 @@ Based on plan.md project structure:
 ### Help and Documentation
 
 - [ ] T152 [P] Create HelpModel in internal/ui/models/help.go displaying all keyboard shortcuts
-- [ ] T153 [P] Write Ginkgo unit tests for HelpModel in tests/unit/ui/models/help_test.go
+- [ ] T153 [P] Write Ginkgo unit tests for HelpModel in internal/ui/models/help_test.go
 - [ ] T154 Integrate '?' and 'F1' key bindings to show help screen in internal/ui/app.go
 - [ ] T155 Add HelpRequestedMsg and HelpClosedMsg message types in internal/ui/messages.go
 - [ ] T156 Create keyboard shortcuts reference in internal/ui/components/help_screen.go with categories (Navigation, Task Management, Filtering, File Operations, System)
@@ -312,8 +315,8 @@ Based on plan.md project structure:
 ### Performance Optimization
 
 - [ ] T167 [P] Implement display string caching in Task struct in internal/parser/task.go
-- [ ] T168 [P] Write benchmark tests for parsing 10,000 tasks in tests/unit/parser/parser_bench_test.go
-- [ ] T169 [P] Write benchmark tests for filtering 10,000 tasks in tests/unit/filter/filter_bench_test.go
+- [ ] T168 [P] Write benchmark tests for parsing 10,000 tasks in internal/parser/parser_bench_test.go
+- [ ] T169 [P] Write benchmark tests for filtering 10,000 tasks in internal/filter/filter_bench_test.go
 - [ ] T170 Implement lazy loading for files >1000 tasks with background goroutine in internal/storage/lazy_loader.go
 - [ ] T171 Optimize index rebuilding to only rebuild on task changes in internal/filter/index.go
 - [ ] T172 Profile application with pprof and optimize hot paths in cmd/todotxt-tui/main.go (add --profile flag)
@@ -329,7 +332,7 @@ Based on plan.md project structure:
 - [ ] T179 Handle completing already completed task (toggle back to incomplete) in internal/ui/actions/complete_task.go
 - [ ] T180 Handle deleting last remaining task in internal/ui/actions/delete_task.go
 - [ ] T181 Handle editing task to empty string (reject with error) in internal/ui/actions/edit_task.go
-- [ ] T182 [P] Write Ginkgo tests for all edge cases in tests/unit/ui/edge_cases_test.go
+- [ ] T182 [P] Write Ginkgo tests for all edge cases in internal/ui/edge_cases_test.go
 
 ### Build and Deployment
 
@@ -402,8 +405,8 @@ Based on plan.md project structure:
 
 ```bash
 # Launch all tests for User Story 1 together:
-Task: "T055 [P] [US1] Write Ginkgo unit tests for TaskListModel in tests/unit/ui/models/tasklist_model_test.go"
-Task: "T056 [P] [US1] Write Ginkgo unit tests for task rendering in tests/unit/ui/components/task_renderer_test.go"
+Task: "T055 [P] [US1] Write Ginkgo unit tests for TaskListModel in internal/ui/models/tasklist_model_test.go"
+Task: "T056 [P] [US1] Write Ginkgo unit tests for task rendering in internal/ui/components/task_renderer_test.go"
 Task: "T057 [P] [US1] Write Ginkgo integration test for loading todo.txt and displaying tasks in tests/integration/ui/view_tasks_test.go"
 Task: "T058 [P] [US1] Write Ginkgo integration test for navigation (j/k/g/G) in tests/integration/ui/navigation_test.go"
 

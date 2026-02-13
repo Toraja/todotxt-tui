@@ -122,7 +122,6 @@ ginkgo generate ./internal/parser
 │   ├── storage/                 # File I/O
 │   └── keymap/                  # Keyboard handling
 ├── tests/
-│   ├── unit/                    # Unit tests
 │   ├── integration/             # Integration tests
 │   └── fixtures/                # Test data
 ├── specs/
