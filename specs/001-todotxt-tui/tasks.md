@@ -44,67 +44,67 @@ Based on plan.md project structure:
 
 ### Parser - todo.txt Format Support
 
-- [ ] T008 [P] Create Task struct in internal/parser/task.go with all todo.txt fields (Priority, CreationDate, Completed, CompletionDate, Description, Contexts, Projects, Metadata, RawLine, LineNumber, Modified)
-- [ ] T009 [P] Write Ginkgo unit tests for Task struct in tests/unit/parser/task_test.go
-- [ ] T010 [P] Implement Parser interface in internal/parser/parser.go with ParseLine, ParseFile, Serialize, Validate methods
-- [ ] T011 [P] Write Ginkgo unit tests for Parser.ParseLine in tests/unit/parser/parser_test.go with table-driven tests for all todo.txt format cases (priority, dates, contexts, projects, completion)
-- [ ] T012 [P] Write Ginkgo unit tests for Parser.ParseFile in tests/unit/parser/parser_file_test.go
-- [ ] T013 Implement ParseLine method with regex patterns for priority, dates, contexts, projects, metadata extraction in internal/parser/parser.go
-- [ ] T014 Implement ParseFile method for parsing entire file content in internal/parser/parser.go
-- [ ] T015 Implement Serialize method to convert Task to todo.txt format string in internal/parser/parser.go
-- [ ] T016 Implement date parsing helper ParseTodoDate(dateStr string) (time.Time, error) in internal/parser/date.go
-- [ ] T017 [P] Write Ginkgo unit tests for date parsing in tests/unit/parser/date_test.go
-- [ ] T018 Implement context/project tag validation helpers (ValidateContextTag, ValidateProjectTag) in internal/parser/validation.go
-- [ ] T019 [P] Write Ginkgo unit tests for tag validation in tests/unit/parser/validation_test.go
+- [X] T008 [P] Create Task struct in internal/parser/task.go with all todo.txt fields (Priority, CreationDate, Completed, CompletionDate, Description, Contexts, Projects, Metadata, RawLine, LineNumber, Modified)
+- [X] T009 [P] Write Ginkgo unit tests for Task struct in tests/unit/parser/task_test.go
+- [X] T010 [P] Implement Parser interface in internal/parser/parser.go with ParseLine, ParseFile, Serialize, Validate methods
+- [X] T011 [P] Write Ginkgo unit tests for Parser.ParseLine in tests/unit/parser/parser_test.go with table-driven tests for all todo.txt format cases (priority, dates, contexts, projects, completion)
+- [X] T012 [P] Write Ginkgo unit tests for Parser.ParseFile in tests/unit/parser/parser_file_test.go
+- [X] T013 Implement ParseLine method with regex patterns for priority, dates, contexts, projects, metadata extraction in internal/parser/parser.go
+- [X] T014 Implement ParseFile method for parsing entire file content in internal/parser/parser.go
+- [X] T015 Implement Serialize method to convert Task to todo.txt format string in internal/parser/parser.go
+- [X] T016 Implement date parsing helper ParseTodoDate(dateStr string) (time.Time, error) in internal/parser/date.go
+- [X] T017 [P] Write Ginkgo unit tests for date parsing in tests/unit/parser/date_test.go
+- [X] T018 Implement context/project tag validation helpers (ValidateContextTag, ValidateProjectTag) in internal/parser/validation.go
+- [X] T019 [P] Write Ginkgo unit tests for tag validation in tests/unit/parser/validation_test.go
 
 ### Storage - File I/O and Persistence
 
-- [ ] T020 [P] Create Storage interface in internal/storage/storage.go with Load, Save, Watch, Exists, Create, GetModificationTime methods
-- [ ] T021 [P] Create FileEvent struct and EventType enum in internal/storage/event.go
+- [X] T020 [P] Create Storage interface in internal/storage/storage.go with Load, Save, Watch, Exists, Create, GetModificationTime methods
+- [X] T021 [P] Create FileEvent struct and EventType enum in internal/storage/event.go
 - [ ] T022 [P] Write Ginkgo unit tests for Storage interface in tests/unit/storage/storage_test.go
-- [ ] T023 Implement FileStorage struct with atomic write logic (temp file + rename) in internal/storage/file_storage.go
-- [ ] T024 Implement Load method with UTF-8 encoding and error handling in internal/storage/file_storage.go
-- [ ] T025 Implement Save method with atomic write (write to temp, rename on success) in internal/storage/file_storage.go
-- [ ] T026 Implement Watch method using fsnotify or polling in internal/storage/file_storage.go
-- [ ] T027 Implement file existence and creation helpers in internal/storage/file_storage.go
+- [X] T023 Implement FileStorage struct with atomic write logic (temp file + rename) in internal/storage/file_storage.go
+- [X] T024 Implement Load method with UTF-8 encoding and error handling in internal/storage/file_storage.go
+- [X] T025 Implement Save method with atomic write (write to temp, rename on success) in internal/storage/file_storage.go
+- [X] T026 Implement Watch method using fsnotify or polling in internal/storage/file_storage.go
+- [X] T027 Implement file existence and creation helpers in internal/storage/file_storage.go
 - [ ] T028 [P] Write Ginkgo integration tests for file I/O operations in tests/integration/storage/file_storage_test.go with fixtures
 
 ### Configuration Management
 
-- [ ] T029 [P] Create Config struct in internal/config/config.go with all settings (TodoFilePath, DoneFilePath, Theme, ShowCompleted, ArchiveCompleted, ConfirmDelete, AutoSave, FileWatchEnabled)
+- [X] T029 [P] Create Config struct in internal/config/config.go with all settings (TodoFilePath, DoneFilePath, Theme, ShowCompleted, ArchiveCompleted, ConfirmDelete, AutoSave, FileWatchEnabled)
 - [ ] T030 [P] Write Ginkgo unit tests for Config in tests/unit/config/config_test.go
-- [ ] T031 Implement config loading from YAML file in internal/config/loader.go with environment variable overrides
-- [ ] T032 Implement default configuration values in internal/config/defaults.go
-- [ ] T033 Implement config validation in internal/config/validation.go
+- [X] T031 Implement config loading from YAML file in internal/config/loader.go with environment variable overrides
+- [X] T032 Implement default configuration values in internal/config/defaults.go
+- [X] T033 Implement config validation in internal/config/validation.go
 - [ ] T034 [P] Create sample config.yaml in tests/fixtures/config/sample_config.yaml
 
 ### Data Model Core
 
-- [ ] T035 [P] Create TodoFile struct in internal/storage/todofile.go with Tasks, Path, LastModified, Modified, Loaded, LoadError fields
+- [X] T035 [P] Create TodoFile struct in internal/storage/todofile.go with Tasks, Path, LastModified, Modified, Loaded, LoadError fields
 - [ ] T036 [P] Write Ginkgo unit tests for TodoFile in tests/unit/storage/todofile_test.go
-- [ ] T037 Implement TodoFile methods: Load, Save, AddTask, UpdateTask, DeleteTask, GetTask, Count, CountCompleted, CountActive, ReloadIfChanged in internal/storage/todofile.go
-- [ ] T038 [P] Create TaskList struct in internal/filter/tasklist.go with AllTasks, ActiveFilters, FilterLogic, SortBy, SortOrder, VisibleTasks, SelectedIndex, ScrollOffset, ViewportSize fields
+- [X] T037 Implement TodoFile methods: Load, Save, AddTask, UpdateTask, DeleteTask, GetTask, Count, CountCompleted, CountActive, ReloadIfChanged in internal/storage/todofile.go
+- [X] T038 [P] Create TaskList struct in internal/filter/tasklist.go with AllTasks, ActiveFilters, FilterLogic, SortBy, SortOrder, VisibleTasks, SelectedIndex, ScrollOffset, ViewportSize fields
 - [ ] T039 [P] Write Ginkgo unit tests for TaskList in tests/unit/filter/tasklist_test.go
 
 ### Filter and Search Infrastructure
 
-- [ ] T040 [P] Create Filter interface in internal/filter/filter.go with Apply, BuildIndex, Search, FilterByPriority, FilterByContext, FilterByProject, FilterByCompletion methods
-- [ ] T041 [P] Create FilterCriteria struct and FilterLogic enum in internal/filter/criteria.go
-- [ ] T042 [P] Create Index struct with priority, context, project, completion indexes in internal/filter/index.go
+- [X] T040 [P] Create Filter interface in internal/filter/filter.go with Apply, BuildIndex, Search, FilterByPriority, FilterByContext, FilterByProject, FilterByCompletion methods
+- [X] T041 [P] Create FilterCriteria struct and FilterLogic enum in internal/filter/criteria.go
+- [X] T042 [P] Create Index struct with priority, context, project, completion indexes in internal/filter/index.go
 - [ ] T043 [P] Write Ginkgo unit tests for Filter interface in tests/unit/filter/filter_test.go
-- [ ] T044 Implement Filter implementation with indexing logic in internal/filter/filter_impl.go
-- [ ] T045 Implement BuildIndex method to create lookup maps in internal/filter/index.go
-- [ ] T046 Implement Apply method with AND/OR combination logic in internal/filter/filter_impl.go
-- [ ] T047 Implement Search method with case-insensitive text matching in internal/filter/filter_impl.go
-- [ ] T048 Implement individual filter methods (FilterByPriority, FilterByContext, FilterByProject, FilterByCompletion) in internal/filter/filter_impl.go
+- [X] T044 Implement Filter implementation with indexing logic in internal/filter/filter_impl.go
+- [X] T045 Implement BuildIndex method to create lookup maps in internal/filter/index.go
+- [X] T046 Implement Apply method with AND/OR combination logic in internal/filter/filter_impl.go
+- [X] T047 Implement Search method with case-insensitive text matching in internal/filter/filter_impl.go
+- [X] T048 Implement individual filter methods (FilterByPriority, FilterByContext, FilterByProject, FilterByCompletion) in internal/filter/filter_impl.go
 
 ### Keymap and Input Handling
 
-- [ ] T049 [P] Create Keymap interface in internal/keymap/keymap.go with GetBinding, SetBinding, GetAvailableActions, GetKeysForAction methods
-- [ ] T050 [P] Create Mode enum (Normal, Insert, Dialog, Search) and Action enum in internal/keymap/types.go
+- [X] T049 [P] Create Keymap interface in internal/keymap/keymap.go with GetBinding, SetBinding, GetAvailableActions, GetKeysForAction methods
+- [X] T050 [P] Create Mode enum (Normal, Insert, Dialog, Search) and Action enum in internal/keymap/types.go
 - [ ] T051 [P] Write Ginkgo unit tests for Keymap in tests/unit/keymap/keymap_test.go
-- [ ] T052 Implement default vim-style keybindings in internal/keymap/defaults.go (j/k/g/G/h/l/a/e/Space/d/+/-/0///f/c/r/s/q/Esc/?/F1)
-- [ ] T053 Implement Keymap implementation in internal/keymap/keymap_impl.go
+- [X] T052 Implement default vim-style keybindings in internal/keymap/defaults.go (j/k/g/G/h/l/a/e/Space/d/+/-/0///f/c/r/s/q/Esc/?/F1)
+- [X] T053 Implement Keymap implementation in internal/keymap/keymap_impl.go
 - [ ] T054 Implement Handler interface for processing key events in internal/keymap/handler.go
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
